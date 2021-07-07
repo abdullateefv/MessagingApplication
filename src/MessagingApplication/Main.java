@@ -20,6 +20,9 @@ public class Main extends Application {
     //Local copy of messages
     public static ObservableList<String> localMessages = FXCollections.observableArrayList();
 
+    //Stores client username
+    public static String sessionUser;
+
     //Creates JDBC SQL Server connection object
     public static Connection conn;
     static {
@@ -72,7 +75,7 @@ public class Main extends Application {
             if (login) {
                 System.out.println("You're in!");
                 wrongPasswordLbl.setVisible(false);
-                final String sessionUser = userField.getText();
+                sessionUser = userField.getText();
                 try {
                     messagingScreen(primaryStage, sessionUser);
                 } catch (IOException e) {
