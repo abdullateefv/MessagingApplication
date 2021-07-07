@@ -3,10 +3,14 @@ package MessagingApplication;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.*;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.collections.ObservableList;
@@ -99,6 +103,19 @@ public class Main extends Application {
         Button sendBtn = (Button) scene.lookup("#sendBtn");
         TextArea composeArea = (TextArea) scene.lookup("#composeArea");
         ListView<String> messageDisplay = (ListView) scene.lookup("#messageDisplay");
+        Text textHolder = new Text();
+
+        //Dynamically changes height of message composition area with size of message
+        double lineWidth = 184;
+        composeArea.setWrapText(true);
+        textHolder.textProperty().bind(composeArea.textProperty());
+        textHolder.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+            double textWidth = textHolder.getLayoutBounds().getWidth();
+            double textHeight = textHolder.getLayoutBounds().getHeight();
+            System.out.println(textHeight);
+            System.out.println(composeArea.getHeight());
+            composeArea.setMinHeight(25 + (15.9609375*Math.floor(textWidth/lineWidth)));
+        });
 
         //Enables custom cell factory which differentiates between sender label and sent message on the UI
         messageDisplay.setCellFactory(list -> new MessageCell());
@@ -119,8 +136,6 @@ public class Main extends Application {
                 throwables.printStackTrace();
             }
         });
-
-
 
         //Handles send button action
         sendBtn.setOnAction((event) -> {
