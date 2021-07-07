@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane centerShape="false" maxHeight="600.0" maxWidth="300.0" minHeight="600.0" minWidth="300.0" prefHeight="600.0" prefWidth="300.0" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MessagingApplication.Controller">
+    <children>
+        <TextField fx:id="composeArea" layoutX="3.0" layoutY="572.0" maxWidth="300.0" minHeight="25.0" minWidth="201.0" prefHeight="25.0" prefWidth="201.0" promptText="Enter Message" />
+        <Button fx:id="sendBtn" layoutX="245.0" layoutY="572.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Send" />
+        <ListView fx:id="messageDisplay" layoutX="3.0" layoutY="6.0" prefHeight="562.0" prefWidth="294.0" />
+        <Button fx:id="refreshBtn" layoutX="209.0" layoutY="572.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="32.0" text="♋">
+            <font>
+                <Font name="Wingdings" size="12.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>
