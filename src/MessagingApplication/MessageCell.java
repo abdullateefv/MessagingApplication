@@ -1,7 +1,6 @@
 package MessagingApplication;
 
 import javafx.scene.control.ListCell;
-import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -9,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 /*
 Custom cell for message cells which differentiate between sender label and sent message on the UI
@@ -18,7 +16,7 @@ Custom cell for message cells which differentiate between sender label and sent 
 public class MessageCell extends ListCell<String> {
 
     //Stores usernames
-    private ArrayList<String> users = new ArrayList<>();
+    private final ArrayList<String> users = new ArrayList<>();
 
     public MessageCell() {
         //Gets usernames from database
