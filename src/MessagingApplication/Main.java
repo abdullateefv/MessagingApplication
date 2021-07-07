@@ -23,7 +23,7 @@ public class Main extends Application {
     public static Connection conn;
     static {
         try {
-            conn = DriverManager.getConnection("jdbc:sqlserver://abdullateefv.database.windows.net:1433;database=ChatApp;user=abdullateef@abdullateefv;password=Sal203!!;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
+            conn = DriverManager.getConnection("jdbc:sqlserver://abdullateefv.database.windows.net:1433;database=ChatApp;user=abdullateef@abdullateefv;password=Password123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -97,7 +97,7 @@ public class Main extends Application {
         //Instantiates messaging scene components
         Button refreshBtn = (Button) scene.lookup("#refreshBtn");
         Button sendBtn = (Button) scene.lookup("#sendBtn");
-        TextField composeArea = (TextField) scene.lookup("#composeArea");
+        TextArea composeArea = (TextArea) scene.lookup("#composeArea");
         ListView<String> messageDisplay = (ListView) scene.lookup("#messageDisplay");
 
         //Enables custom cell factory which differentiates between sender label and sent message on the UI
