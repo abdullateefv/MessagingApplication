@@ -1,9 +1,12 @@
 package MessagingApplication;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.ListCell;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,7 +36,6 @@ public class MessageCell extends ListCell<String> {
 
     @Override
     protected void updateItem(String item, boolean empty) {
-
         super.updateItem(item, empty);
         setText(item);
         setStyle("-fx-background-color: rgb(255,255,255)");
@@ -42,8 +44,15 @@ public class MessageCell extends ListCell<String> {
         if (users.contains(item)) {
             setTextFill(Color.DARKOLIVEGREEN);
             setFont(Font.font("System", FontWeight.BOLD, 12));
+            Main.flag = Main.sessionUser.equals(item);
         } else {
             setTextFill(Color.BLACK);
         }
+
+        if (Main.flag)
+            setAlignment(Pos.CENTER_RIGHT);
+        else
+            setAlignment(Pos.CENTER_LEFT);
+
     }
 }

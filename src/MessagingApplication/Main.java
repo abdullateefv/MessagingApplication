@@ -22,6 +22,7 @@ public class Main extends Application {
 
     //Stores client username
     public static String sessionUser;
+    public static Boolean flag = false;
 
     //Creates JDBC SQL Server connection object
     public static Connection conn;

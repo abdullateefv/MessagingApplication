@@ -7,7 +7,7 @@
 
 <AnchorPane centerShape="false" maxHeight="600.0" maxWidth="300.0" minHeight="600.0" minWidth="300.0" prefHeight="600.0" prefWidth="300.0" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MessagingApplication.Controller">
     <children>
-        <Button fx:id="sendBtn" layoutX="245.0" layoutY="572.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Send" />
+        <Button fx:id="sendBtn" layoutX="245.0" layoutY="572.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Send"  />
         <ListView fx:id="messageDisplay" layoutX="3.0" layoutY="6.0" prefHeight="562.0" prefWidth="294.0" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="6.0" />
         <Button fx:id="refreshBtn" layoutX="209.0" layoutY="572.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="32.0" text="♋">
             <font>
