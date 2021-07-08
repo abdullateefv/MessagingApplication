@@ -3,14 +3,14 @@ package MessagingApplication;
 import javafx.geometry.Pos;
 import javafx.scene.control.ListCell;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
 /*
 Custom cell for message cells which differentiate between sender label and sent message on the UI
@@ -34,6 +34,34 @@ public class MessageCell extends ListCell<String> {
         }
     }
 
+    public static Paint randomColorGen() {
+        // Member variables (properties about the object)
+        String[] mColors = {
+                "#39add1", // light blue
+                "#3079ab", // dark blue
+                "#c25975", // mauve
+                "#e15258", // red
+                "#f9845b", // orange
+                "#838cc7", // lavender
+                "#7d669e", // purple
+                "#53bbb4", // aqua
+                "#51b46d", // green
+                "#e0ab18", // mustard
+                "#637a91", // dark gray
+                "#f092b0", // pink
+                "#b7c0c7"  // light gray
+        };
+
+        String color;
+
+        // Randomly select a fact
+        Random randomGenerator = new Random(); // Construct a new Random number generator
+        int randomNumber = randomGenerator.nextInt(mColors.length);
+        color = mColors[randomNumber];
+
+        return Color.web(color);
+    }
+
     @Override
     protected void updateItem(String item, boolean empty) {
         super.updateItem(item, empty);
@@ -42,7 +70,7 @@ public class MessageCell extends ListCell<String> {
 
         //If cell is a username cell, style it as such
         if (users.contains(item)) {
-            setTextFill(Color.DARKOLIVEGREEN);
+            setTextFill(Main.messageColor);
             setFont(Font.font("System", FontWeight.BOLD, 12));
             Main.flag = Main.sessionUser.equals(item);
         } else {

@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -20,9 +21,10 @@ public class Main extends Application {
     //Local copy of messages
     public static ObservableList<String> localMessages = FXCollections.observableArrayList();
 
-    //Stores client username
+    //Stores client information
     public static String sessionUser;
     public static Boolean flag = false;
+    public static final Paint messageColor = MessageCell.randomColorGen();
 
     //Creates JDBC SQL Server connection object
     public static Connection conn;
