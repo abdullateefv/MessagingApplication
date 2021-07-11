@@ -1,13 +1,24 @@
 package MessagingApplication;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Queries {
 
     Queries() {
+    }
+
+    public static Connection getConnection() {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlserver://abdullateefv.database.windows.net:1433;database=ChatApp;user=abdullateef@abdullateefv;password=Password123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return conn;
     }
 
     public static String getAccountIDFromUsername(String username) {
@@ -92,5 +103,29 @@ public class Queries {
             throwables.printStackTrace();
         }
         return passwords;
+    }
+
+    public static void sendMessage(String message2send) {
+        try {
+            Statement statement = Main.conn.createStatement();
+            statement.executeUpdate("INSERT INTO ChatApp.dbo.messages VALUES ('" + message2send + "','" + Main.sessionUser + "')");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static ObservableList<String> getMessages() {
+        ObservableList<String> messages = FXCollections.observableArrayList();
+        try {
+            Statement statement = Main.conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT message, sender FROM ChatApp.dbo.messages");
+            while (rs.next()) {
+                messages.add(rs.getString("sender"));
+                messages.add(rs.getString("message"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return messages;
     }
 }
