@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -22,9 +23,11 @@ public class Main extends Application {
     public static ObservableList<String> localMessages = FXCollections.observableArrayList();
 
     //Stores client information
+    public static String sessionUserAccountID;
+    public static String sessionUsername;
     public static String sessionUser;
+    public static String sessionUserMessageColor;
     public static Boolean flag = false;
-    public static final Paint messageColor = MessageCell.randomColorGen();
 
     //Creates JDBC SQL Server connection object
     public static Connection conn;
@@ -54,37 +57,27 @@ public class Main extends Application {
         Label wrongPasswordLbl = (Label) scene.lookup("#wrongPasswordLbl");
 
         //Handles log in button action
-        loginBtn.setOnMouseClicked((event)->{
-            boolean login = false;
-
+        loginBtn.setOnMouseClicked((event)-> {
             //Gets account login information from server and compares to entered values
-            try {
-                Statement statement = conn.createStatement();
-                ResultSet rs = statement.executeQuery("SELECT Usernames, Passwords FROM ChatApp.dbo.logins");
-                while (rs.next()) {
-                    String aUsername = rs.getString("Usernames");
-                    String aPassword = rs.getString("Passwords");
+            ArrayList<String> usernames = Queries.getUsernames();
+            ArrayList<String> passwords = Queries.getPasswords();
+            String enteredUsername = userField.getText();
+            String enteredPassword = passwordField.getText();
 
-                    if (userField.getText().equals(aUsername) && passwordField.getText().equals(aPassword)) {
-                        login = true;
-                        break;
-                    }
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            //Successful login
-            if (login) {
+            if (usernames.contains(enteredUsername) && passwords.get(usernames.indexOf(enteredUsername)).equals(enteredPassword)) {
                 System.out.println("You're in!");
+                sessionUsername = userField.getText();
+                sessionUserAccountID = Queries.getAccountIDFromUsername(sessionUsername);
+                sessionUser = Queries.getName(sessionUserAccountID);
+                sessionUserMessageColor = Queries.getPrefColor(sessionUserAccountID);
                 wrongPasswordLbl.setVisible(false);
-                sessionUser = userField.getText();
+
                 try {
-                    messagingScreen(primaryStage, sessionUser);
+                    messagingScreen(primaryStage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            //Unsuccessful Login
+
             } else {
                 wrongPasswordLbl.setVisible(true);
             }
@@ -92,7 +85,7 @@ public class Main extends Application {
     }
 
     //Messaging Screen Logic
-    private void messagingScreen(Stage primaryStage, String sessionUser) throws IOException {
+    private void messagingScreen(Stage primaryStage) throws IOException {
 
         //Sets up messaging scene
         Parent root = FXMLLoader.load(getClass().getResource("Messaging.fxml"));
