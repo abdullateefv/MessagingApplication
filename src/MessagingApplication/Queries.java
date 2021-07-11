@@ -14,7 +14,7 @@ public class Queries {
         String accountID = null;
         try {
             Statement statement = Main.conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT Account_ID FROM dbo.Accounts WHERE (Username = '"+username+"')");
+            ResultSet rs = statement.executeQuery("SELECT Account_ID FROM dbo.Accounts WHERE (Username = '" + username + "')");
             while (rs.next()) {
                 accountID = rs.getString("Account_ID");
             }
@@ -28,7 +28,7 @@ public class Queries {
         String prefColorHex = null;
         try {
             Statement statement = Main.conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT PrefMessageColor FROM dbo.Accounts WHERE (Account_ID = '"+accountID +"')");
+            ResultSet rs = statement.executeQuery("SELECT PrefMessageColor FROM dbo.Accounts WHERE (Account_ID = '" + accountID + "')");
             while (rs.next()) {
                 prefColorHex = rs.getString("PrefMessageColor");
             }
@@ -42,7 +42,7 @@ public class Queries {
         String name = null;
         try {
             Statement statement = Main.conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT Name FROM dbo.Accounts WHERE (Account_ID = '"+accountID +"')");
+            ResultSet rs = statement.executeQuery("SELECT Name FROM dbo.Accounts WHERE (Account_ID = '" + accountID + "')");
             while (rs.next()) {
                 name = rs.getString("Name");
             }
