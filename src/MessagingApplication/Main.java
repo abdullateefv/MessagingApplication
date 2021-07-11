@@ -32,12 +32,17 @@ public class Main extends Application {
 
     //Creates JDBC SQL Server connection object
     public static Connection conn;
+
     static {
         try {
             conn = DriverManager.getConnection("jdbc:sqlserver://abdullateefv.database.windows.net:1433;database=ChatApp;user=abdullateef@abdullateefv;password=Password123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
     //Entry point to application, handles login screen logic
@@ -58,7 +63,7 @@ public class Main extends Application {
         Label wrongPasswordLbl = (Label) scene.lookup("#wrongPasswordLbl");
 
         //Handles log in button action
-        loginBtn.setOnMouseClicked((event)-> {
+        loginBtn.setOnMouseClicked((event) -> {
             //Gets account login information from server and compares to entered values
             ArrayList<String> usernames = Queries.getUsernames();
             ArrayList<String> passwords = Queries.getPasswords();
@@ -111,7 +116,7 @@ public class Main extends Application {
             double textHeight = textHolder.getLayoutBounds().getHeight();
             System.out.println(textHeight);
             System.out.println(composeArea.getHeight());
-            composeArea.setMinHeight(25 + (15.9609375*Math.floor(textWidth/lineWidth)));
+            composeArea.setMinHeight(25 + (15.9609375 * Math.floor(textWidth / lineWidth)));
         });
 
         //Enables custom cell factory which differentiates between sender label and sent message on the UI
@@ -119,8 +124,8 @@ public class Main extends Application {
 
         //Starts conversation auto-refresh service
         Timeline messageRefresh = new Timeline(
-            new KeyFrame(Duration.seconds(1),
-                    event -> refreshBtn.fire()));
+                new KeyFrame(Duration.seconds(1),
+                        event -> refreshBtn.fire()));
 
         messageRefresh.setCycleCount(Timeline.INDEFINITE);
         messageRefresh.play();
@@ -143,7 +148,7 @@ public class Main extends Application {
             //Updates SQL server with new message
             try {
                 Statement statement = conn.createStatement();
-                statement.executeUpdate("INSERT INTO ChatApp.dbo.messages VALUES ('"+message2send+"','"+sessionUser+"')");
+                statement.executeUpdate("INSERT INTO ChatApp.dbo.messages VALUES ('" + message2send + "','" + sessionUser + "')");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -184,10 +189,6 @@ public class Main extends Application {
     public void stop() throws Exception {
         Statement statement = conn.createStatement();
         statement.executeUpdate("TRUNCATE TABLE ChatApp.dbo.messages");
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
 
