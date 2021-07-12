@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
@@ -13,6 +14,8 @@ import java.sql.SQLException;
 
 public class MessagingController {
 
+    @FXML
+    private Button sendBtn;
     @FXML
     private ListView<String> messageDisplay;
     @FXML
@@ -55,6 +58,7 @@ public class MessagingController {
 
     @FXML
     private void onSendBtnAction() {
+        sendBtn.getHeight();
         //Gets new message from text field
         String message2send = composeArea.getText();
 

@@ -44,7 +44,7 @@ public class LoginController {
 
             //Sets up messaging scene
             Main.primaryStage.setTitle("Messaging");
-            Scene scene = new Scene(Main.messagingRoot, 300, 600);
+            Scene scene = new Scene(Main.messagingRoot, 800, 600);
             Main.primaryStage.setScene(scene);
             Main.primaryStage.show();
 
