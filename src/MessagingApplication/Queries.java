@@ -2,14 +2,10 @@ package MessagingApplication;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
 import java.util.ArrayList;
 
 public class Queries {
-
-    Queries() {
-    }
 
     public static Connection getConnection() {
         Connection conn = null;
@@ -127,5 +123,14 @@ public class Queries {
             throwables.printStackTrace();
         }
         return messages;
+    }
+
+    public static void deleteMessages() {
+        try {
+            Statement statement = Main.conn.createStatement();
+            statement.executeUpdate("TRUNCATE TABLE ChatApp.dbo.messages");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
