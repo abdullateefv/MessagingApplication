@@ -58,7 +58,7 @@ public class MessagingController {
 
     @FXML
     private void onSendBtnAction() {
-        sendBtn.getHeight();
+
         //Gets new message from text field
         String message2send = composeArea.getText();
 
