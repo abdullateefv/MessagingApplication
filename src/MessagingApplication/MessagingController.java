@@ -36,15 +36,13 @@ public class MessagingController {
                                 throwables.printStackTrace();
                             }
                         }));
-
         messageRefresh.setCycleCount(Timeline.INDEFINITE);
         messageRefresh.play();
 
         //Sets cell factory for message display listView
         messageDisplay.setCellFactory(list -> new MessageCell());
-        composeArea.setWrapText(true);
 
-        //Automatically resizes text composition area as text increases
+        //Dynamically resizes text composition area as text increases
         textHolder.textProperty().bind(composeArea.textProperty());
         textHolder.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
             double textWidth = textHolder.getLayoutBounds().getWidth();
@@ -73,12 +71,12 @@ public class MessagingController {
     }
 
     //Updates message display ListView with new messages
-    public static void updateMessageDisplay(ListView<String> messageDisplay) throws SQLException {
+    private static void updateMessageDisplay(ListView<String> messageDisplay) throws SQLException {
 
-        //Gets currently displayed messages
+        //Gets messages in server
         ObservableList<String> currentMessages = Queries.getMessages();
 
-        //Computes number of new messages
+        //Computes number of new messages in server
         int oldConversationSize = Main.localMessages.size();
         int currentConversationSize = currentMessages.size();
         int newMessageNumber = currentConversationSize - oldConversationSize;
@@ -89,6 +87,5 @@ public class MessagingController {
             messageDisplay.setItems(Main.localMessages);
         }
     }
-
 
 }

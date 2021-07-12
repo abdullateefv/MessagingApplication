@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Queries {
 
+    //Returns JDBC Connection object to Azure SQL Server
     public static Connection getConnection() {
         Connection conn = null;
         try {
@@ -17,6 +18,7 @@ public class Queries {
         return conn;
     }
 
+    //Looks up account unique identifier from username and returns as string
     public static String getAccountIDFromUsername(String username) {
         String accountID = null;
         try {
@@ -31,6 +33,7 @@ public class Queries {
         return accountID;
     }
 
+    //Looks up account preferred message color from account unique identifier and returns as string in hex color code format
     public static String getPrefColor(String accountID) {
         String prefColorHex = null;
         try {
@@ -45,6 +48,7 @@ public class Queries {
         return prefColorHex;
     }
 
+    //Looks up name associated with account from account unique identifier
     public static String getName(String accountID) {
         String name = null;
         try {
@@ -59,6 +63,7 @@ public class Queries {
         return name;
     }
 
+    //Returns all usernames in server as ArrayList
     public static ArrayList<String> getUsernames() {
         ArrayList<String> usernames = new ArrayList<>();
         try {
@@ -73,6 +78,7 @@ public class Queries {
         return usernames;
     }
 
+    //Returns all names associated with accounts in server as ArrayList
     public static ArrayList<String> getNames() {
         ArrayList<String> names = new ArrayList<>();
         try {
@@ -87,6 +93,7 @@ public class Queries {
         return names;
     }
 
+    //Returns all passwords associated with accounts as Arraylist
     public static ArrayList<String> getPasswords() {
         ArrayList<String> passwords = new ArrayList<>();
         try {
@@ -101,6 +108,7 @@ public class Queries {
         return passwords;
     }
 
+    //Adds message & message sender to message log in server
     public static void sendMessage(String message2send) {
         try {
             Statement statement = Main.conn.createStatement();
@@ -110,6 +118,7 @@ public class Queries {
         }
     }
 
+    //Returns all messages stored in server as an ObservableList
     public static ObservableList<String> getMessages() {
         ObservableList<String> messages = FXCollections.observableArrayList();
         try {
@@ -125,6 +134,7 @@ public class Queries {
         return messages;
     }
 
+    //Deletes all messages stored in server
     public static void deleteMessages() {
         try {
             Statement statement = Main.conn.createStatement();
