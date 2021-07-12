@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.Objects;
 
@@ -38,12 +39,18 @@ public class Main extends Application {
     }
 
     @Override
-    //Entry point to application, handles login screen logic
-    public void start(Stage primaryStage) throws Exception {
-        //Initializes stage & view resource file
-        Main.primaryStage = primaryStage;
+    //Initializes view resource file variables, called before start() method
+    public void init() throws IOException {
         loginRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Login.fxml")));
         messagingRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Messaging.fxml")));
+    }
+
+    @Override
+    //Entry point to application
+    public void start(Stage primaryStage) {
+
+        //Allows for primaryStage access in all files
+        Main.primaryStage = primaryStage;
 
         //Sets up login scene
         primaryStage.setTitle("Messaging");
