@@ -1,28 +1,33 @@
 package MessagingApplication;
 
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
 public class LoginController {
-    public TextField userField;
-    public Rectangle loginButton;
-    public PasswordField passwordField;
-    public Label wrongPasswordLbl;
+
+    @FXML
+    private TextField userField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Label wrongPasswordLbl;
 
     public LoginController() {
 
     }
 
-    public void initialize() {
+    @FXML
+    private void initialize() {
 
     }
 
-    public void onLoginClicked() {
+    @FXML
+    private void onLoginClicked() {
         //Gets account login information from server and compares to entered values
         ArrayList<String> usernames = Queries.getUsernames();
         ArrayList<String> passwords = Queries.getPasswords();

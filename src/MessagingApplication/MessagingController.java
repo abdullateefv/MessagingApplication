@@ -3,7 +3,7 @@ package MessagingApplication;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
+import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
@@ -13,17 +13,19 @@ import java.sql.SQLException;
 
 public class MessagingController {
 
-    public Button sendBtn;
-    public ListView<String> messageDisplay;
-    public TextArea composeArea;
+    @FXML
+    private ListView<String> messageDisplay;
+    @FXML
+    private TextArea composeArea;
 
-    Text textHolder = new Text();
-    double lineWidth = 184;
+    private final Text textHolder = new Text();
+    private final double lineWidth = 184;
 
     public MessagingController() {
     }
 
-    public void initialize() {
+    @FXML
+    private void initialize() {
         //Starts conversation auto-refresh service
         Timeline messageRefresh = new Timeline(
                 new KeyFrame(Duration.seconds(1),
@@ -53,7 +55,8 @@ public class MessagingController {
         });
     }
 
-    public void onSendBtnAction() {
+    @FXML
+    private void onSendBtnAction() {
         //Gets new message from text field
         String message2send = composeArea.getText();
 
