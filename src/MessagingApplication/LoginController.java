@@ -1,12 +1,16 @@
 package MessagingApplication;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Objects;
 
 public class LoginController {
 
@@ -28,29 +32,39 @@ public class LoginController {
 
     @FXML
     private void onLoginClicked() {
-        //Gets account login information from server and compares to entered values
-        ArrayList<String> usernames = Queries.getUsernames();
-        ArrayList<String> passwords = Queries.getPasswords();
+
+        //Gets entered authentication information from respective fields
         String enteredUsername = userField.getText();
         String enteredPassword = passwordField.getText();
 
-        if (usernames.contains(enteredUsername) && passwords.get(usernames.indexOf(enteredUsername)).equals(enteredPassword)) {
-            System.out.println("You're in!");
+        try {
+            //Attempts login, throws SQLException authFail if wrong username or password
+            Main.conn = Queries.getConnection(enteredUsername, enteredPassword);
+
+            //Loads messaging view if successful login
+            Parent messagingRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Messaging.fxml")));
+            Main.primaryStage.setTitle("Messaging");
+            Scene scene = new Scene(messagingRoot, 800, 600);
+            Main.primaryStage.setScene(scene);
+            Main.primaryStage.show();
+
+            //Queries & initializes user information
             Main.sessionUsername = userField.getText();
             Main.sessionUserAccountID = Queries.getAccountIDFromUsername(Main.sessionUsername);
             Main.sessionUser = Queries.getName(Main.sessionUserAccountID);
             Main.sessionUserMessageColor = Queries.getPrefColor(Main.sessionUserAccountID);
+
+            //Hides wrong password message
             wrongPasswordLbl.setVisible(false);
 
-            //Sets up messaging scene
-            Main.primaryStage.setTitle("Messaging");
-            Scene scene = new Scene(Main.messagingRoot, 800, 600);
-            Main.primaryStage.setScene(scene);
-            Main.primaryStage.show();
-
-        } else {
+        } catch (SQLException authFail) {
+            //Displays wrong password message
             wrongPasswordLbl.setVisible(true);
+
+        } catch (IOException throwables) {
+            throwables.printStackTrace();
         }
+
     }
 
 }

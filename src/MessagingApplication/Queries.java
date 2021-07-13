@@ -2,20 +2,15 @@ package MessagingApplication;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.util.ArrayList;
 
 public class Queries {
 
     //Returns JDBC Connection object to Azure SQL Server
-    public static Connection getConnection() {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection("jdbc:sqlserver://abdullateefv.database.windows.net:1433;database=ChatApp;user=abdullateef@abdullateefv;password=Password123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return conn;
+    public static Connection getConnection(String username, String password) throws SQLException {
+        return DriverManager.getConnection("jdbc:sqlserver://abdullateefv.database.windows.net:1433;database=ChatApp;user=" + username + ";password=" + password + ";encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
     }
 
     //Looks up account unique identifier from username and returns as string

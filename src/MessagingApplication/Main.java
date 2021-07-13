@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.Objects;
@@ -14,12 +15,10 @@ import java.util.Objects;
 public class Main extends Application {
 
     //Instantiates view resource file & stage variables
-    public static Parent messagingRoot;
-    public static Parent loginRoot;
     public static Stage primaryStage;
 
     //Creates JDBC SQL Server connection object
-    public static Connection conn = Queries.getConnection();
+    public static Connection conn;
 
     //Local copy of messages
     public static ObservableList<String> localMessages = FXCollections.observableArrayList();
@@ -39,15 +38,10 @@ public class Main extends Application {
     }
 
     @Override
-    //Initializes view resource file variables, called before start() method
-    public void init() throws IOException {
-        loginRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Login.fxml")));
-        messagingRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Messaging.fxml")));
-    }
-
-    @Override
     //Entry point to application
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
+
+        Parent loginRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Login.fxml")));
 
         //Allows for primaryStage access in all files
         Main.primaryStage = primaryStage;
