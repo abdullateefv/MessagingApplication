@@ -5,28 +5,32 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
-<AnchorPane centerShape="false" maxHeight="600.0" maxWidth="300.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0"
-            prefWidth="800.0" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="MessagingApplication.MessagingController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" centerShape="false" maxHeight="600.0" maxWidth="300.0" minHeight="600.0"
+            minWidth="800.0" prefHeight="600.0" prefWidth="800.0" scaleShape="false"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="MessagingApplication.MessagingController">
     <stylesheets>
         <URL value="@Messaging.css"/>
     </stylesheets>
-    <Button fx:id="sendBtn" layoutX="744.8" layoutY="570.0" minHeight="26.0" mnemonicParsing="false"
-            onAction="#onSendBtnAction" prefHeight="26.0" prefWidth="51.0" text="Send" AnchorPane.bottomAnchor="4.0"
-            AnchorPane.rightAnchor="4.0"/>
+    <Button layoutX="744.8" layoutY="570.0" minHeight="26.0" mnemonicParsing="false" onAction="#onSendBtnAction"
+            prefHeight="26.0" prefWidth="51.0" text="Send" AnchorPane.bottomAnchor="4.0" AnchorPane.rightAnchor="4.0"/>
     <ListView fx:id="messageDisplay" layoutX="203.0" layoutY="35.0" prefHeight="520.0" prefWidth="593.0"
               AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="4.0"/>
     <TextArea fx:id="composeArea" layoutX="203.0" layoutY="570.8" maxWidth="538.0" minHeight="26.0" minWidth="538.0"
               prefHeight="26.0" prefWidth="538.0" promptText="Enter Message" stylesheets="@Messaging.css"
               wrapText="true" AnchorPane.bottomAnchor="4.0" AnchorPane.rightAnchor="59.0"/>
-    <ListView layoutX="6.0" layoutY="35.0" prefHeight="551.0" prefWidth="192.0" AnchorPane.bottomAnchor="4.0"
-              AnchorPane.leftAnchor="4.0"/>
+    <ListView fx:id="conversationsDisplay" layoutX="6.0" layoutY="35.0" prefHeight="551.0" prefWidth="192.0"
+              AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0">
+        <Button text="Conversation"/>
+    </ListView>
     <Circle fill="DODGERBLUE" layoutX="24.0" layoutY="22.5" radius="18.0" stroke="BLACK" strokeType="INSIDE"/>
-    <Label layoutX="48.0" layoutY="7.0" prefHeight="17.0" prefWidth="148.0" text="Abdul Lateef">
+    <Label fx:id="sessionUserLabel" layoutX="48.0" layoutY="7.0" maxHeight="28.0" minHeight="28.0" minWidth="148.0"
+           text="Name">
         <font>
             <Font name="System Bold" size="21.0"/>
         </font>
     </Label>
-    <Button layoutX="741.0" layoutY="10.0" mnemonicParsing="false" text="Logout" AnchorPane.rightAnchor="4.0"/>
+    <Button layoutX="741.0" layoutY="10.0" mnemonicParsing="false" text="Logout"
+            AnchorPane.rightAnchor="4.0"/>
     <Button layoutX="679.0" layoutY="10.0" mnemonicParsing="false" text="Settings"/>
+    <Button layoutX="631.0" layoutY="10.0" mnemonicParsing="false" text="Clear"/>
 </AnchorPane>

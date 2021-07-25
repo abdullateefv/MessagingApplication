@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import java.util.ArrayList;
 
+//This class holds various static methods for use in database manipulation in program
 public class Queries {
 
     //Returns JDBC Connection object to Azure SQL Server
@@ -13,27 +14,12 @@ public class Queries {
         return DriverManager.getConnection("jdbc:sqlserver://abdullateefv.database.windows.net:1433;database=ChatApp;user=" + username + ";password=" + password + ";encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
     }
 
-    //Looks up account unique identifier from username and returns as string
-    public static String getAccountIDFromUsername(String username) {
-        String accountID = null;
-        try {
-            Statement statement = Main.conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT Account_ID FROM dbo.Accounts WHERE (Username = '" + username + "')");
-            while (rs.next()) {
-                accountID = rs.getString("Account_ID");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return accountID;
-    }
-
     //Looks up account preferred message color from account unique identifier and returns as string in hex color code format
-    public static String getPrefColor(String accountID) {
+    public static String getPrefColor(String username) {
         String prefColorHex = null;
         try {
             Statement statement = Main.conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT PrefMessageColor FROM dbo.Accounts WHERE (Account_ID = '" + accountID + "')");
+            ResultSet rs = statement.executeQuery("SELECT PrefMessageColor FROM dbo.Accounts WHERE (Username = '" + username + "')");
             while (rs.next()) {
                 prefColorHex = rs.getString("PrefMessageColor");
             }
@@ -44,11 +30,11 @@ public class Queries {
     }
 
     //Looks up name associated with account from account unique identifier
-    public static String getName(String accountID) {
+    public static String getName(String username) {
         String name = null;
         try {
             Statement statement = Main.conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT Name FROM dbo.Accounts WHERE (Account_ID = '" + accountID + "')");
+            ResultSet rs = statement.executeQuery("SELECT Name FROM dbo.Accounts WHERE (Username = '" + username + "')");
             while (rs.next()) {
                 name = rs.getString("Name");
             }
@@ -134,6 +120,7 @@ public class Queries {
         try {
             Statement statement = Main.conn.createStatement();
             statement.executeUpdate("TRUNCATE TABLE ChatApp.dbo.messages");
+            System.out.println("Truncated");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -24,7 +24,6 @@ public class Main extends Application {
     public static ObservableList<String> localMessages = FXCollections.observableArrayList();
 
     //Stores client information
-    public static String sessionUserAccountID;
     public static String sessionUsername;
     public static String sessionUser;
     public static String sessionUserMessageColor;
@@ -52,12 +51,5 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-    @Override
-    //Executes when chat window is closed, clears chat history from server
-    public void stop() {
-        Queries.deleteMessages();
-    }
-
 }
 
